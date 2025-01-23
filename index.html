@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NUDE BEACH</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+      overflow: hidden; /* Elimina las barras de desplazamiento */
+    }
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* Mantiene la relación de aspecto sin distorsionar */
+      max-width: 100%;
+      max-height: 100vh;
+      transition: transform 0.3s ease; /* Transición suave al hacer zoom */
+    }
+
+    .btn-container {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .btn-row {
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin: 5px;
+      cursor: pointer;
+      background-color: rgba(255, 255, 255, 0.3); /* Mayor transparencia */
+      border: none;
+      border-radius: 5px;
+      transition: all 0.3s ease; /* Suaviza las transiciones */
+    }
+
+    /* Efecto hover cuando el ratón pasa por encima */
+    .btn:hover {
+      background-color: #e91e63; /* Rosa/magenta */
+      color: white;
+    }
+
+    /* Efecto active cuando se hace clic sobre el botón */
+    .btn:active {
+      background-color: #d81b60; /* Un tono más oscuro de rosa/magenta */
+    }
+
+    /* Contenedor de los botones en una sola fila */
+    .zoom-btn-container {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .zoom-btn {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin: 5px;
+      cursor: pointer;
+      background-color: rgba(255, 255, 255, 0.3);
+      border: none;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    /* Efecto hover y active para botones de zoom */
+    .zoom-btn:hover {
+      background-color: #e91e63;
+      color: white;
+    }
+
+    .zoom-btn:active {
+      background-color: #d81b60;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div>
+    <img id="image" src="" alt="Imagen aleatoria">
+  </div>
+
+  <!-- Botones de Zoom y Navegación -->
+  <div class="zoom-btn-container">
+    <button class="zoom-btn" id="zoomOutBtn">Zoom -</button>
+    <button class="btn" id="prevBtn">Anterior</button>
+    <button class="btn" id="nextBtn">Siguiente</button>
+    <button class="zoom-btn" id="zoomInBtn">Zoom +</button>
+  </div>
+
+  <script>
+    // Número total de imágenes (actualizado a 1701)
+    const totalImagenes = 1701;
+
+    // Generar la lista de nombres de las imágenes
+    const imagenes = [];
+    for (let i = 1; i <= totalImagenes; i++) {
+      const paddedNumber = String(i).padStart(4, '0');  // Asegura que los números tengan 4 dígitos
+      imagenes.push(`imagenes/${paddedNumber}.jpg`);
+    }
+
+    let currentIndex = Math.floor(Math.random() * imagenes.length); // Comienza con una imagen aleatoria
+    let previousIndex = currentIndex; // Inicializamos el índice anterior
+
+    let zoomLevel = 1; // Nivel de zoom inicial (1 es el tamaño normal)
+
+    const imageElement = document.getElementById('image');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const zoomInBtn = document.getElementById('zoomInBtn');
+    const zoomOutBtn = document.getElementById('zoomOutBtn');
+
+    // Función para actualizar la imagen mostrada
+    function updateImage() {
+      imageElement.src = imagenes[currentIndex];
+      console.log('Imagen actual: ', imagenes[currentIndex]);  // Verifica la imagen que se está mostrando
+    }
+
+    // Función para actualizar el zoom de la imagen
+    function updateZoom() {
+      imageElement.style.transform = `scale(${zoomLevel})`; // Aplica el zoom a la imagen
+    }
+
+    // Botón de anterior (regresar a la misma imagen anterior)
+    prevBtn.addEventListener('click', () => {
+      currentIndex = previousIndex; // Vuelve a la misma imagen anterior
+      updateImage();
+    });
+
+    // Botón de siguiente (cambiar a una imagen aleatoria)
+    nextBtn.addEventListener('click', () => {
+      previousIndex = currentIndex; // Guardamos la imagen actual como la anterior
+      currentIndex = Math.floor(Math.random() * imagenes.length); // Seleccionamos una imagen aleatoria
+      zoomLevel = 1; // Restablecer el zoom a 100% al cambiar a una nueva imagen
+      updateImage();
+      updateZoom(); // Restablece el zoom de la nueva imagen a su tamaño original
+    });
+
+    // Botón de zoom in (aumentar el zoom un 10%)
+    zoomInBtn.addEventListener('click', () => {
+      zoomLevel *= 1.25; // Aumentar el tamaño en un 10%
+      updateZoom();
+    });
+
+    // Botón de zoom out (restablecer el zoom al 100%)
+    zoomOutBtn.addEventListener('click', () => {
+      zoomLevel = 1; // Restablecer el tamaño de la imagen al 100%
+      updateZoom();
+    });
+
+    // Inicializa la imagen
+    updateImage();
+    updateZoom(); // Aplica el zoom inicial
+
+  </script>
+
+</body>
+</html>
