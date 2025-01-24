@@ -20,10 +20,10 @@
     img {
       width: 100%;
       height: 100%;
-      object-fit: contain; /* Mantiene la relaciÛn de aspecto sin distorsionar */
+      object-fit: contain; /* Mantiene la relaci√≥n de aspecto sin distorsionar */
       max-width: 100%;
       max-height: 100vh;
-      transition: transform 0.3s ease; /* TransiciÛn suave al hacer zoom */
+      transition: transform 0.3s ease; /* Transici√≥n suave al hacer zoom */
     }
 
     .btn-container {
@@ -44,26 +44,26 @@
       margin: 5px;
       cursor: pointer;
       background-color: rgba(255, 255, 255, 0.3); /* Mayor transparencia */
-      border: none;
+      border: 1px solid black;
       border-radius: 5px;
       transition: all 0.3s ease; /* Suaviza las transiciones */
     }
 
-    /* Efecto hover cuando el ratÛn pasa por encima */
+    /* Efecto hover cuando el rat√≥n pasa por encima */
     .btn:hover {
       background-color: #e91e63; /* Rosa/magenta */
       color: white;
     }
 
-    /* Efecto active cuando se hace clic sobre el botÛn */
+    /* Efecto active cuando se hace clic sobre el bot√≥n */
     .btn:active {
-      background-color: #d81b60; /* Un tono m·s oscuro de rosa/magenta */
+      background-color: #d81b60; /* Un tono m√°s oscuro de rosa/magenta */
     }
 
     /* Contenedor de los botones en una sola fila */
     .zoom-btn-container {
       position: absolute;
-      bottom: 20px;
+      bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -72,19 +72,19 @@
     }
 
     .zoom-btn {
-      padding: 10px 20px;
+      padding: 10px 10px;
       font-size: 18px;
       margin: 5px;
       cursor: pointer;
       background-color: rgba(255, 255, 255, 0.3);
-      border: none;
+      border: 1px solid red;
       border-radius: 5px;
       transition: all 0.3s ease;
     }
 
     /* Efecto hover y active para botones de zoom */
     .zoom-btn:hover {
-      background-color: #e91e63;
+      background-color: dodgerblue;
       color: white;
     }
 
@@ -100,29 +100,29 @@
     <img id="image" src="" alt="Imagen aleatoria">
   </div>
 
-  <!-- Botones de Zoom y NavegaciÛn -->
+  <!-- Botones de Zoom y Navegaci√≥n -->
   <div class="zoom-btn-container">
-    <button class="zoom-btn" id="zoomOutBtn">Zoom -</button>
+    <button class="zoom-btn" id="zoomOutBtn">Zoom-</button>
     <button class="btn" id="prevBtn">Anterior</button>
     <button class="btn" id="nextBtn">Siguiente</button>
-    <button class="zoom-btn" id="zoomInBtn">Zoom +</button>
+    <button class="zoom-btn" id="zoomInBtn">Zoom+</button>
   </div>
 
   <script>
-    // N˙mero total de im·genes (actualizado a 1701)
-    const totalImagenes = 1701;
+    // N√∫mero total de im√°genes (actualizado a 1000)
+    const totalImagenes = 1000;
 
-    // Generar la lista de nombres de las im·genes
+    // Generar la lista de nombres de las im√°genes
     const imagenes = [];
     for (let i = 1; i <= totalImagenes; i++) {
-      const paddedNumber = String(i).padStart(4, '0');  // Asegura que los n˙meros tengan 4 dÌgitos
+      const paddedNumber = String(i).padStart(4, '0');  // Asegura que los n√∫meros tengan 4 d√≠gitos
       imagenes.push(`imagenes/${paddedNumber}.jpg`);
     }
 
     let currentIndex = Math.floor(Math.random() * imagenes.length); // Comienza con una imagen aleatoria
-    let previousIndex = currentIndex; // Inicializamos el Ìndice anterior
+    let previousIndex = currentIndex; // Inicializamos el √≠ndice anterior
 
-    let zoomLevel = 1; // Nivel de zoom inicial (1 es el tamaÒo normal)
+    let zoomLevel = 1; // Nivel de zoom inicial (1 es el tama√±o normal)
 
     const imageElement = document.getElementById('image');
     const prevBtn = document.getElementById('prevBtn');
@@ -130,41 +130,41 @@
     const zoomInBtn = document.getElementById('zoomInBtn');
     const zoomOutBtn = document.getElementById('zoomOutBtn');
 
-    // FunciÛn para actualizar la imagen mostrada
+    // Funci√≥n para actualizar la imagen mostrada
     function updateImage() {
       imageElement.src = imagenes[currentIndex];
-      console.log('Imagen actual: ', imagenes[currentIndex]);  // Verifica la imagen que se est· mostrando
+      console.log('Imagen actual: ', imagenes[currentIndex]);  // Verifica la imagen que se est√° mostrando
     }
 
-    // FunciÛn para actualizar el zoom de la imagen
+    // Funci√≥n para actualizar el zoom de la imagen
     function updateZoom() {
       imageElement.style.transform = `scale(${zoomLevel})`; // Aplica el zoom a la imagen
     }
 
-    // BotÛn de anterior (regresar a la misma imagen anterior)
+    // Bot√≥n de anterior (regresar a la misma imagen anterior)
     prevBtn.addEventListener('click', () => {
       currentIndex = previousIndex; // Vuelve a la misma imagen anterior
       updateImage();
     });
 
-    // BotÛn de siguiente (cambiar a una imagen aleatoria)
+    // Bot√≥n de siguiente (cambiar a una imagen aleatoria)
     nextBtn.addEventListener('click', () => {
       previousIndex = currentIndex; // Guardamos la imagen actual como la anterior
       currentIndex = Math.floor(Math.random() * imagenes.length); // Seleccionamos una imagen aleatoria
       zoomLevel = 1; // Restablecer el zoom a 100% al cambiar a una nueva imagen
       updateImage();
-      updateZoom(); // Restablece el zoom de la nueva imagen a su tamaÒo original
+      updateZoom(); // Restablece el zoom de la nueva imagen a su tama√±o original
     });
 
-    // BotÛn de zoom in (aumentar el zoom un 10%)
+    // Bot√≥n de zoom in (aumentar el zoom un 10%)
     zoomInBtn.addEventListener('click', () => {
-      zoomLevel *= 1.25; // Aumentar el tamaÒo en un 10%
+      zoomLevel *= 1.3; // Aumentar el tama√±o en un 10%
       updateZoom();
     });
 
-    // BotÛn de zoom out (restablecer el zoom al 100%)
+    // Bot√≥n de zoom out (restablecer el zoom al 100%)
     zoomOutBtn.addEventListener('click', () => {
-      zoomLevel = 1; // Restablecer el tamaÒo de la imagen al 100%
+      zoomLevel = 1; // Restablecer el tama√±o de la imagen al 100%
       updateZoom();
     });
 
