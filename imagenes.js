@@ -400,7 +400,7 @@ const imagenes = [
 'https://images2.imgbox.com/c8/6e/LR15pKJn_o.jpg',
 'https://images2.imgbox.com/ec/96/tCipp2OP_o.jpg',
 'https://images2.imgbox.com/5d/cc/0laUo1dh_o.jpg',
-'https://images2.imgbox.com/b6/f9/kQfgmfBY_o.jpg',
+'https://images2.imgbox.com/b6/f9/kQfgmfBY_o.jpg'
 
   // Agrega los 9000 enlaces aquí
 ];
