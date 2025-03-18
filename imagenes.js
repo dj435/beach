@@ -154,9 +154,9 @@ const imagenes = [
 'https://images2.imgbox.com/b6/73/9jFmwexY_o.jpg',
 'https://images2.imgbox.com/fb/d2/lh8XaRkt_o.jpg',
 'https://images2.imgbox.com/38/fa/5CALVkBU_o.jpg',
-'https://images2.imgbox.com/cc/62/F4cZKUrz_t.jpeg
-'https://images2.imgbox.com/ef/ce/nJzQA2MO_t.jpeg
-'https://images2.imgbox.com/5e/0b/K5bzj2i3_t.jpeg
+'https://images2.imgbox.com/cc/62/F4cZKUrz_o.jpeg',
+'https://images2.imgbox.com/ef/ce/nJzQA2MO_o.jpeg',
+'https://images2.imgbox.com/5e/0b/K5bzj2i3_o.jpeg',
 'https://images2.imgbox.com/c4/b8/GTAnN2CN_o.jpg',
 'https://images2.imgbox.com/96/a4/8bKWFyrs_o.jpg',
 'https://images2.imgbox.com/ea/34/ZiitICr4_o.jpg',
