@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrusel Vertical</title>
+    <script src="imagenes.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+            margin: 0;
+            overflow: hidden;
+                  			background: linear-gradient(300deg,red,green,blue);
+            background-size: 180% 180%;
+           animation: gradient-animation 10s ease infinite;
+        }
+
+    @keyframes gradient-animation {
+          0% {
+           background-position: 0% 50%;
+          }
+          50% {
+          background-position: 100% 50%;
+       }
+          100% {
+          background-position: 0% 50%;
+  }
+}
+#pageTitle {
+  position: fixed;
+  top: -80px;  /* Coloca el texto en la parte superior de la pantalla */
+  left: 100%;
+  transform: translate(-50%, -50%);  /* Centra el texto horizontalmente */
+  font-size: 600px;
+  color: #fff;
+  text-shadow: 4px 7px 2px rgba(0,0,0,0.75);
+  white-space: nowrap;
+  animation: marquee 25s linear infinite;
+  z-index: -10;
+}
+
+@keyframes marquee {
+  from {
+    left: 280%;
+  }
+  to {
+    left: -200%;
+  }
+}
+
+    
+        .carousel-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .carousel {
+            display: flex;
+            flex-direction: column;
+            transition: transform 1.5s ease-in-out;
+        }
+        .carousel img {
+            width: 100vw;
+            height: 100vh;
+            object-fit: contain;
+            display: block;
+            border-top: 3px dashed black;
+
+            box-sizing: border-box;
+        }
+        .buttons {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 10;
+        }
+        .left-button, .right-button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 30px;
+        }
+        .autoplay-button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+  
+<h1 id="pageTitle">PLAYA MUJERES</h1>
+  
+<audio id="player" autoplay style="display: none;">
+<source src="https://streaming2.locucionar.com/proxy/fmterapia987?mp=/stream" type="audio/mpeg">
+</audio>
+    <div class="carousel-container">
+        <div class="carousel" id="carousel"></div>
+        <div class="buttons">
+            <button class="left-button" onclick="moveSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+            <button class="right-button" onclick="moveSlide(1)"><i class="fas fa-chevron-right"></i></button>
+            <button class="autoplay-button" onclick="toggleAutoplay()"><i class="fas fa-play"></i></button>
+        </div>
+    </div>
+
+    <script>
+let index = 0;
+let shuffledImages = [];
+const carousel = document.getElementById("carousel");
+let autoplayInterval;
+
+function shuffleArray(array) {
+  return array.sort(() => Math.random() - 0.5);
+}
+
+function loadRandomImage() {
+  if (shuffledImages.length === 0) {
+    shuffledImages = shuffleArray([...imagenes]);
+  }
+  const img = document.createElement("img");
+  img.src = shuffledImages[index];
+  carousel.appendChild(img);
+  carousel.style.transform = `translateY(${-index * 100}vh)`;
+}
+
+function loadNextImage() {
+  const nextImg = new Image();
+  nextImg.src = shuffledImages[(index + 1) % shuffledImages.length];
+}
+
+function moveSlide(step) {
+  index = (index + step + shuffledImages.length) % shuffledImages.length;
+  loadNextImage();
+  loadRandomImage();
+}
+
+function startAutoplay(interval = 6000) {
+  autoplayInterval = setInterval(moveSlide.bind(null, 1), interval);
+}
+
+function stopAutoplay() {
+  clearInterval(autoplayInterval);
+}
+
+function toggleAutoplay() {
+  if (autoplayInterval) {
+    stopAutoplay();
+    document.querySelector('.autoplay-button i').classList.remove('fa-pause');
+    document.querySelector('.autoplay-button i').classList.add('fa-play');
+  } else {
+    startAutoplay();
+    document.querySelector('.autoplay-button i').classList.remove('fa-play');
+    document.querySelector('.autoplay-button i').classList.add('fa-pause');
+  }
+}
+
+loadRandomImage(); // Cargar la primera imagen al inicio
+    </script>
+</body>
+</html>
