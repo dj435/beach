@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -98,6 +99,7 @@ let index = 0;
 let shuffledImages = [];
 const carousel = document.getElementById("carousel");
 let autoplayInterval;
+let lastShownImages = []; // Array para almacenar las últimas imágenes mostradas
 
 function shuffleArray(array) {
   return array.sort(() => Math.random() - 0.5);
@@ -107,10 +109,24 @@ function loadRandomImage() {
   if (shuffledImages.length === 0) {
     shuffledImages = shuffleArray([...imagenes]);
   }
+
+  // Verifica si la imagen actual ya ha sido mostrada recientemente
+  while (lastShownImages.includes(shuffledImages[index])) {
+    index = (index + 1) % shuffledImages.length; // Avanza al siguiente índice
+  }
+
   const img = document.createElement("img");
   img.src = shuffledImages[index];
   carousel.appendChild(img);
   carousel.style.transform = `translateY(${-index * 100}vh)`;
+
+  // Agrega la imagen actual al array de imágenes mostradas recientemente
+  lastShownImages.push(shuffledImages[index]);
+
+  // Limpia el array de imágenes mostradas recientemente si alcanza un límite
+  if (lastShownImages.length > 10) { // Puedes ajustar este límite según tus necesidades
+    lastShownImages.shift(); // Elimina la imagen más antigua del array
+  }
 }
 
 function loadNextImage() {
