@@ -31,27 +31,6 @@
           background-position: 0% 50%;
   }
 }
-#pageTitle {
-  position: fixed;
-  top: -80px;  /* Coloca el texto en la parte superior de la pantalla */
-  left: 100%;
-  transform: translate(-50%, -50%);  /* Centra el texto horizontalmente */
-  font-size: 600px;
-  color: #fff;
-  text-shadow: 4px 7px 2px rgba(0,0,0,0.75);
-  white-space: nowrap;
-  animation: marquee 25s linear infinite;
-  z-index: -10;
-}
-
-@keyframes marquee {
-  from {
-    left: 280%;
-  }
-  to {
-    left: -200%;
-  }
-}
 
     
         .carousel-container {
@@ -102,9 +81,7 @@
 </head>
 <body>
   
-<h1 id="pageTitle">PLAYA MUJERES</h1>
-  
-<audio id="player" autoplay style="display: none;">
+    <audio id="player" autoplay style="display: none;">
 <source src="https://streaming2.locucionar.com/proxy/fmterapia987?mp=/stream" type="audio/mpeg">
 </audio>
     <div class="carousel-container">
