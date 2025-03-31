@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrusel Vertical</title>
+    <script src="imagenes.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+            margin: 0;
+            overflow: hidden;
+        }
+        .carousel-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .carousel {
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel img {
+            width: 100vw;
+            height: 100vh;
+            object-fit: contain;
+            display: block;
+        }
+        .buttons {
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .up-button {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .down-button {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="carousel-container">
+        <div class="carousel" id="carousel"></div>
+        <button class="up-button" onclick="moveSlide(-1)">&#9650;</button>
+        <button class="down-button" onclick="moveSlide(1)">&#9660;</button>
+    </div>
+
+    <script>
+        let index = 0;
+        let shuffledImages = [];
+        const carousel = document.getElementById("carousel");
+        
+        function shuffleArray(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+        
+        function loadRandomImages() {
+            shuffledImages = shuffleArray([...imagenes]).slice(0, 2000); // Cargar solo 10 imÃ¡genes aleatorias
+            shuffledImages.forEach(src => {
+                let img = document.createElement("img");
+                img.src = src;
+                carousel.appendChild(img);
+            });
+        }
+        
+        function moveSlide(step) {
+            index += step;
+            if (index < 0) index = shuffledImages.length - 1;
+            if (index >= shuffledImages.length) index = 0;
+            carousel.style.transform = `translateY(${-index * 100}vh)`;
+        }
+        
+        loadRandomImages();
+    </script>
+</body>
+</html>
